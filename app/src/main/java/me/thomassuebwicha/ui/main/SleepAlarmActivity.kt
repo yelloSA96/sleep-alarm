@@ -74,9 +74,9 @@ fun SleepAlarmActivity(modifier: Modifier = Modifier) {
         ) {
             Button(
                 onClick = {
-                    hour = (hour + 1) % 24
-                    minute = (minute + 30) % 60
-                    if (minute < 30) hour = (hour + 1) % 24
+                    val totalMinutes = hour * 60 + minute + 90
+                    hour = (totalMinutes / 60) % 24
+                    minute = totalMinutes % 60
                 },
                 modifier = Modifier.weight(1f)
             ) {
@@ -101,9 +101,9 @@ fun SleepAlarmActivity(modifier: Modifier = Modifier) {
         ) {
             Button(
                 onClick = {
-                    hour = (hour + 4) % 24
-                    minute = (minute + 30) % 60
-                    if (minute < 30) hour = (hour + 1) % 24
+                    val totalMinutes = hour * 60 + minute + 270
+                    hour = (totalMinutes / 60) % 24
+                    minute = totalMinutes % 60
                 },
                 modifier = Modifier.weight(1f)
             ) {
@@ -112,7 +112,7 @@ fun SleepAlarmActivity(modifier: Modifier = Modifier) {
 
             Button(
                 onClick = {
-                    hour = (hour + 6)
+                    hour = (hour + 6) % 24
                 },
                 modifier = Modifier.weight(1f)
             ) {
@@ -128,9 +128,9 @@ fun SleepAlarmActivity(modifier: Modifier = Modifier) {
         ) {
             Button(
                 onClick = {
-                    hour = (hour + 7)
-                    minute = (minute + 30) % 60
-                    if (minute < 30) hour = (hour + 1) % 24
+                    val totalMinutes = hour * 60 + minute + 450
+                    hour = (totalMinutes / 60) % 24
+                    minute = totalMinutes % 60
                 },
                 modifier = Modifier.weight(1f)
             ) {
@@ -139,7 +139,7 @@ fun SleepAlarmActivity(modifier: Modifier = Modifier) {
 
             Button(
                 onClick = {
-                    hour = (hour + 9)
+                    hour = (hour + 9) % 24
                 },
                 modifier = Modifier.weight(1f)
             ) {
