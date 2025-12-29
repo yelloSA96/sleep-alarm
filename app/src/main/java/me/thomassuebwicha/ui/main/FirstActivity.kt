@@ -1,7 +1,5 @@
 package me.thomassuebwicha.ui.main
 
-import android.content.Intent
-import android.provider.AlarmClock
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
