@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import me.thomassuebwicha.ui.main.DigitalClock
+import me.thomassuebwicha.ui.main.SleepAlarmActivity
 import me.thomassuebwicha.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
 //                    color = MaterialTheme.colorScheme.background
                     color = Color.White
                 ) {
-                    DigitalClock()
+                    SleepAlarmActivity()
                 }
             }
         }
@@ -76,6 +76,6 @@ fun NewSection() {
 @Composable
 fun GreetingPreview() {
     MyApplicationTheme {
-        DigitalClock()
+        SleepAlarmActivity()
     }
 }
