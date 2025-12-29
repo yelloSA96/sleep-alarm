@@ -85,7 +85,7 @@ fun SleepAlarmActivity(modifier: Modifier = Modifier) {
 
             Button(
                 onClick = {
-                    hour = (hour + 3)
+                    hour = (hour + 3) % 24
                 },
                 modifier = Modifier.weight(1f)
             ) {
