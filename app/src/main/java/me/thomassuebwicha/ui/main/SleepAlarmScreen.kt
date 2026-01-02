@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,8 +32,8 @@ fun SleepAlarmScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
     var hour by remember { mutableIntStateOf(calendar.get(Calendar.HOUR_OF_DAY)) }
-    var minute  by remember { mutableIntStateOf(calendar.get(Calendar.MINUTE)) }
-    val timeString = String.format(Locale.ENGLISH,"%02d:%02d", hour, minute)
+    var minute by remember { mutableIntStateOf(calendar.get(Calendar.MINUTE)) }
+    val timeString = String.format(Locale.ENGLISH, "%02d:%02d", hour, minute)
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -41,7 +42,7 @@ fun SleepAlarmScreen(modifier: Modifier = Modifier) {
         Text(
             text = timeString,
             fontSize = 58.sp,
-            color = Color.Black
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(40.dp))
@@ -155,7 +156,7 @@ fun SleepAlarmScreen(modifier: Modifier = Modifier) {
         ) {
             Button(
                 onClick = {
-                    setAlarm(context,hour,minute,"Made by Sleep Application!")
+                    setAlarm(context, hour, minute, "Made by Sleep Application!")
                 },
                 modifier = Modifier.weight(1f)
             ) {
