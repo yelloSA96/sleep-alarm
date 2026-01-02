@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import me.thomassuebwicha.ui.main.SleepAlarmActivity
+import me.thomassuebwicha.ui.main.SleepAlarmScreen
 import me.thomassuebwicha.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
 //                    color = MaterialTheme.colorScheme.background
                     color = Color.White
                 ) {
-                    SleepAlarmActivity()
+                    SleepAlarmScreen()
                 }
             }
         }
@@ -37,6 +37,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     MyApplicationTheme {
-        SleepAlarmActivity()
+        SleepAlarmScreen()
     }
 }

@@ -27,7 +27,7 @@ import java.util.Locale
 
 // TODO: Improve this composable
 @Composable
-fun SleepAlarmActivity(modifier: Modifier = Modifier) {
+fun SleepAlarmScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
     var hour by remember { mutableIntStateOf(calendar.get(Calendar.HOUR_OF_DAY)) }
