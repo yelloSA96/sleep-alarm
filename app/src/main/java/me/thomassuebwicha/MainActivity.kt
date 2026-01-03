@@ -9,7 +9,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import me.thomassuebwicha.ui.main.SleepAlarmScreen
 import me.thomassuebwicha.ui.theme.MyApplicationTheme
@@ -34,9 +33,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Preview(showBackground = true,
+    showSystemUi = true
     )
 @Composable
-fun GreetingPreview() {
+fun SleepAlarmActivityPreview() {
     MyApplicationTheme {
         SleepAlarmScreen()
     }
