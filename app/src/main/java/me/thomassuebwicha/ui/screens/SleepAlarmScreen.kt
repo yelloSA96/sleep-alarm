@@ -1,4 +1,4 @@
-package me.thomassuebwicha.ui.main
+package me.thomassuebwicha.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,12 +27,12 @@ import java.util.Locale
 
 // TODO: Improve this composable
 @Composable
-fun SleepAlarmActivity(modifier: Modifier = Modifier) {
+fun SleepAlarmScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
     var hour by remember { mutableIntStateOf(calendar.get(Calendar.HOUR_OF_DAY)) }
-    var minute  by remember { mutableIntStateOf(calendar.get(Calendar.MINUTE)) }
-    val timeString = String.format(Locale.ENGLISH,"%02d:%02d", hour, minute)
+    var minute by remember { mutableIntStateOf(calendar.get(Calendar.MINUTE)) }
+    val timeString = String.format(Locale.ENGLISH, "%02d:%02d", hour, minute)
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -41,7 +41,7 @@ fun SleepAlarmActivity(modifier: Modifier = Modifier) {
         Text(
             text = timeString,
             fontSize = 58.sp,
-            color = Color.Black
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(40.dp))
@@ -155,7 +155,7 @@ fun SleepAlarmActivity(modifier: Modifier = Modifier) {
         ) {
             Button(
                 onClick = {
-                    setAlarm(context,hour,minute,"Made by Sleep Application!")
+                    setAlarm(context, hour, minute, "Made by Sleep Application!")
                 },
                 modifier = Modifier.weight(1f)
             ) {
