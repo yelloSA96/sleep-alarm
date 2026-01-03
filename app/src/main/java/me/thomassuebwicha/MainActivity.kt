@@ -10,7 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import me.thomassuebwicha.ui.main.SleepAlarmScreen
+import me.thomassuebwicha.ui.screens.SleepAlarmScreen
 import me.thomassuebwicha.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
