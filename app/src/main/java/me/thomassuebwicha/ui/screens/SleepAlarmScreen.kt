@@ -21,13 +21,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import me.thomassuebwicha.viewmodels.setAlarm
 import java.util.Calendar
 import java.util.Locale
 
 // TODO: Improve this composable
 @Composable
-fun SleepAlarmScreen(modifier: Modifier = Modifier) {
+fun SleepAlarmScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
     var hour by remember { mutableIntStateOf(calendar.get(Calendar.HOUR_OF_DAY)) }
