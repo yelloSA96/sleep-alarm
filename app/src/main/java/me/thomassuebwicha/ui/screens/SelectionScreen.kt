@@ -22,7 +22,6 @@ fun SelectionScreen(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
