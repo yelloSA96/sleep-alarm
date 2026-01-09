@@ -198,3 +198,12 @@ fun SleepTabRow(
         }
     }
 }
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun SleepAlarmsIntroScreenPreview() {
+    MaterialTheme {
+        val navController = rememberNavController()
+        SelectionScreen(navController)
+    }
+}

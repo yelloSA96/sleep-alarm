@@ -19,9 +19,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import me.thomassuebwicha.viewmodels.setAlarm
 import java.util.Calendar
 import java.util.Locale
@@ -170,3 +172,11 @@ fun SleepAlarmScreen(
     }
 }
 
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun SleepAlarmsScreenPreview() {
+    MaterialTheme {
+        val navController = rememberNavController()
+        SleepAlarmScreen(navController)
+    }
+}
