@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import me.thomassuebwicha.ui.navigation.NavigationRoutes
 
 
 @Composable
@@ -71,6 +72,7 @@ fun SelectionScreen(
 
         // Tab Row
         SleepTabRow(
+            navController = navController,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
@@ -120,11 +122,11 @@ fun BulletPoint(text: String) {
 
 @Composable
 fun SleepTabRow(
-    modifier: Modifier = Modifier
+    navController: NavController,
+    modifier: Modifier = Modifier,
 ) {
-    var selectedIndex by remember { mutableIntStateOf(0) }
+    var selectedIndex by remember { mutableIntStateOf(-1) }
     val options = listOf("Bed Time Now", "Sleep Time", "Wake Up Time")
-
 
     SingleChoiceSegmentedButtonRow(
         modifier = modifier.fillMaxWidth()
@@ -135,7 +137,14 @@ fun SleepTabRow(
                     index = index,
                     count = options.size
                 ),
-                onClick = {selectedIndex = index },
+                onClick = {
+                    selectedIndex = index
+                    when (index) {
+                        0 -> navController.navigate(NavigationRoutes.ALARM_SCREEN)
+                        1 -> navController.navigate("sleep_time")
+                        2 -> navController.navigate("wake_up_time")
+                    }
+                },
                 selected = index == selectedIndex,
                 icon = {},
                 label = { Text(title)}
