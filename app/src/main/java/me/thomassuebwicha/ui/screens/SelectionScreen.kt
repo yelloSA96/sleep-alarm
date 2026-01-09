@@ -71,8 +71,6 @@ fun SelectionScreen(
 
         // Tab Row
         SleepTabRow(
-            selectedTab = 0,
-            onTabSelected = onTabSelected,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
@@ -122,79 +120,26 @@ fun BulletPoint(text: String) {
 
 @Composable
 fun SleepTabRow(
-    selectedTab: Int,
-    onTabSelected: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val tabs = listOf("Bed Time Now", "Sleep Time", "Wake Up Time")
+    var selectedIndex by remember { mutableIntStateOf(0) }
+    val options = listOf("Bed Time Now", "Sleep Time", "Wake Up Time")
 
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.extraLarge,
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-        tonalElevation = 0.dp
+
+    SingleChoiceSegmentedButtonRow(
+        modifier = modifier.fillMaxWidth()
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-        ) {
-            tabs.forEachIndexed { index, title ->
-                val isSelected = index == selectedTab
-
-                Surface(
-                    onClick = { onTabSelected(index) },
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight(),
-                    color = if (isSelected) {
-                        MaterialTheme.colorScheme.secondaryContainer
-                    } else {
-                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0f)
-                    },
-                    shape = when (index) {
-                        0 -> MaterialTheme.shapes.extraLarge.copy(
-                            topEnd = androidx.compose.foundation.shape.CornerSize(0.dp),
-                            bottomEnd = androidx.compose.foundation.shape.CornerSize(0.dp)
-                        )
-                        tabs.size - 1 -> MaterialTheme.shapes.extraLarge.copy(
-                            topStart = androidx.compose.foundation.shape.CornerSize(0.dp),
-                            bottomStart = androidx.compose.foundation.shape.CornerSize(0.dp)
-                        )
-                        else -> MaterialTheme.shapes.extraLarge.copy(
-                            topStart = androidx.compose.foundation.shape.CornerSize(0.dp),
-                            bottomStart = androidx.compose.foundation.shape.CornerSize(0.dp),
-                            topEnd = androidx.compose.foundation.shape.CornerSize(0.dp),
-                            bottomEnd = androidx.compose.foundation.shape.CornerSize(0.dp)
-                        )
-                    }
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        if (isSelected) {
-                            Icon(
-                                painter = painterResource(id = android.R.drawable.checkbox_on_background),
-                                contentDescription = null,
-                                modifier = Modifier.size(20.dp),
-                                tint = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                        }
-                        Text(
-                            text = title,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = if (isSelected) {
-                                MaterialTheme.colorScheme.onSecondaryContainer
-                            } else {
-                                MaterialTheme.colorScheme.onSurfaceVariant
-                            }
-                        )
-                    }
-                }
-            }
+        options.forEachIndexed { index, title ->
+            SegmentedButton(
+                shape = SegmentedButtonDefaults.itemShape(
+                    index = index,
+                    count = options.size
+                ),
+                onClick = {selectedIndex = index },
+                selected = index == selectedIndex,
+                icon = {},
+                label = { Text(title)}
+            )
         }
     }
 }
