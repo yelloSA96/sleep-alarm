@@ -60,7 +60,7 @@ fun SelectionScreen(
 
         // Bullet points
         Column(
-            modifier = Modifier.padding(start = 16.dp, bottom = 24.dp)
+            modifier = Modifier.padding(start = 1.dp, bottom = 24.dp)
         ) {
             BulletPoint("The benefits of a regular sleep schedule;")
             BulletPoint("What sleep cycles are or 90-minute sleep blocks are;")
