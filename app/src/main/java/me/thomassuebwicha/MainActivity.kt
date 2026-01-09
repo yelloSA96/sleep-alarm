@@ -10,11 +10,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import me.thomassuebwicha.ui.screens.SelectionScreen
-import me.thomassuebwicha.ui.screens.SleepAlarmScreen
+import me.thomassuebwicha.ui.navigation.AppNavigation
 import me.thomassuebwicha.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,18 +25,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(
-                        navController = navController,
-                        startDestination = "selection_screen"
-                    ) {
-                        composable("selection_screen") {
-                            SelectionScreen(navController = navController)
-                        }
-
-                        composable("sleep_alarm") {
-                            SleepAlarmScreen(navController = navController)
-                        }
-                    }
+                    AppNavigation(navController = navController)
                 }
             }
         }
