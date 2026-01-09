@@ -39,6 +39,6 @@ class MainActivity : ComponentActivity() {
 fun SleepAlarmActivityPreview() {
     MyApplicationTheme {
         val navController = rememberNavController()
-        SleepAlarmScreen(navController)
+        AppNavigation(navController = navController)
     }
 }
