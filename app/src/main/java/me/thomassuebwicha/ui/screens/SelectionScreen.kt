@@ -142,7 +142,7 @@ fun SleepTabRow(
                     when (index) {
                         0 -> navController.navigate(NavigationRoutes.ALARM_SCREEN)
                         1 -> navController.navigate("sleep_time")
-                        2 -> navController.navigate("wake_up_time")
+                        2 -> navController.navigate(NavigationRoutes.WAKE_UP_TIME_SCREEN)
                     }
                 },
                 selected = index == selectedIndex,

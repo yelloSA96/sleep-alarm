@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import me.thomassuebwicha.ui.screens.SelectionScreen
 import me.thomassuebwicha.ui.screens.SleepAlarmScreen
+import me.thomassuebwicha.ui.screens.WakeUpTimeScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
@@ -19,6 +20,10 @@ fun AppNavigation(navController: NavHostController) {
 
         composable(NavigationRoutes.ALARM_SCREEN) {
             SleepAlarmScreen(navController = navController)
+        }
+
+        composable(NavigationRoutes.WAKE_UP_TIME_SCREEN) {
+            WakeUpTimeScreen(navController = navController)
         }
     }
 }
