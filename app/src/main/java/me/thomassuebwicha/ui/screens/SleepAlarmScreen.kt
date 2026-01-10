@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import me.thomassuebwicha.ui.tester.TimePickerDialog
+import me.thomassuebwicha.util.subtractMinutesFromTime
 import me.thomassuebwicha.viewmodels.setAlarm
 import java.util.Calendar
 import java.util.Locale
@@ -44,7 +45,6 @@ fun SleepAlarmScreen(
     val calendar = Calendar.getInstance()
     var displayableHour by remember { mutableIntStateOf(calendar.get(Calendar.HOUR_OF_DAY)) }
     var displayableMinute by remember { mutableIntStateOf(calendar.get(Calendar.MINUTE)) }
-    var selectedTime by remember { mutableStateOf<Calendar?>(null) }
     var showTimePicker by remember { mutableStateOf(false) }
     Column(
         modifier = modifier.fillMaxSize(),
@@ -53,7 +53,7 @@ fun SleepAlarmScreen(
     ) {
 
         Text(
-            text = "Select your wake up time",
+            text = "Bedtime Alarms",
             fontSize = 24.sp,
             color = MaterialTheme.colorScheme.onBackground
         )
@@ -72,22 +72,26 @@ fun SleepAlarmScreen(
         ) {
             Button(
                 onClick = {
-                    val totalMinutes = displayableHour * 60 + displayableMinute + 90
-                    displayableHour = (totalMinutes / 60) % 24
-                    displayableMinute = totalMinutes % 60
+                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 450)
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("+1.5 Hr")
+                Text("-7.5 Hr")
             }
 
             Button(
                 onClick = {
-                    displayableHour = (displayableHour + 3) % 24
+                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 540)
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("+3.0 Hr")
+                Text("-9 Hr")
             }
         }
 
@@ -99,22 +103,26 @@ fun SleepAlarmScreen(
         ) {
             Button(
                 onClick = {
-                    val totalMinutes = displayableHour * 60 + displayableMinute + 270
-                    displayableHour = (totalMinutes / 60) % 24
-                    displayableMinute = totalMinutes % 60
+                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 270)
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("+4.5 Hr")
+                Text("-4.5 Hr")
             }
 
             Button(
                 onClick = {
-                    displayableHour = (displayableHour + 6) % 24
+                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 360)
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("+6 Hr")
+                Text("-6 Hr")
             }
         }
 
@@ -126,24 +134,31 @@ fun SleepAlarmScreen(
         ) {
             Button(
                 onClick = {
-                    val totalMinutes = displayableHour * 60 + displayableMinute + 450
-                    displayableHour = (totalMinutes / 60) % 24
-                    displayableMinute = totalMinutes % 60
+                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 90)
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("+7.5 Hr")
+                Text("-1.5 Hr")
             }
 
             Button(
                 onClick = {
-                    displayableHour = (displayableHour + 9) % 24
+                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 180)
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("+9 Hr")
+                Text("-3.0 Hr")
             }
         }
+
+
+
 
         Button(
             colors = ButtonColors(
@@ -163,23 +178,6 @@ fun SleepAlarmScreen(
             )
 
         }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                onClick = {
-                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
-                },
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("Set Sleep Alarm")
-            }
-        }
-
 
         if (showTimePicker) {
             Log.i("TimePicker", "showTimePicker is true, showing TimePickerDialog")
