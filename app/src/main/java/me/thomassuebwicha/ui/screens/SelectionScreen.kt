@@ -126,7 +126,7 @@ fun SleepTabRow(
     modifier: Modifier = Modifier,
 ) {
     var selectedIndex by remember { mutableIntStateOf(-1) }
-    val options = listOf("Bed Time Now", "Sleep Time", "Wake Up Time")
+    val options = listOf("Bed Time Now", "TBA", "Wake Up Time")
 
     SingleChoiceSegmentedButtonRow(
         modifier = modifier.fillMaxWidth()
@@ -141,7 +141,7 @@ fun SleepTabRow(
                     selectedIndex = index
                     when (index) {
                         0 -> navController.navigate(NavigationRoutes.ALARM_SCREEN)
-                        1 -> navController.navigate("sleep_time")
+//                        1 -> navController.navigate("sleep_time")
                         2 -> navController.navigate(NavigationRoutes.WAKE_UP_TIME_SCREEN)
                     }
                 },
