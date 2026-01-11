@@ -53,21 +53,51 @@ fun SleepAlarmScreen(
     ) {
 
         Text(
-            text = "Bedtime Alarms",
-            fontSize = 24.sp,
+            text = "Bedtime Alarm",
+            fontSize = 40.sp,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
+        Text(
+            text = "This calculates the best time to go to sleep based on your desired wake up time.",
+            fontSize = 20.sp,
             color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(40.dp))
 
-
-        Spacer(modifier = Modifier.height(40.dp))
-
-        // Grid for buttons
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(18.dp,0.dp),
+            horizontalArrangement = Arrangement.spacedBy(1.dp)
+        ) {
+            Button(
+                onClick = {
+                    val (newHour, newMinute) = subtractMinutesFromTime(
+                        displayableHour,
+                        displayableMinute,
+                        540
+                    )
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(
+                        context,
+                        displayableHour,
+                        displayableMinute,
+                        "Made by Sleep Application!"
+                    )
+                },
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("-9 Hr")
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(18.dp,0.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
@@ -81,38 +111,14 @@ fun SleepAlarmScreen(
             ) {
                 Text("-7.5 Hr")
             }
-
-            Button(
-                onClick = {
-                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 540)
-                    displayableHour = newHour
-                    displayableMinute = newMinute
-                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
-                },
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("-9 Hr")
-            }
         }
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(18.dp,0.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Button(
-                onClick = {
-                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 270)
-                    displayableHour = newHour
-                    displayableMinute = newMinute
-                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
-                },
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("-4.5 Hr")
-            }
-
             Button(
                 onClick = {
                     val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 360)
@@ -126,24 +132,41 @@ fun SleepAlarmScreen(
             }
         }
 
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(18.dp,0.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
                 onClick = {
-                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 90)
+                    val (newHour, newMinute) = subtractMinutesFromTime(
+                        displayableHour,
+                        displayableMinute,
+                        270
+                    )
                     displayableHour = newHour
                     displayableMinute = newMinute
-                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
+                    setAlarm(
+                        context,
+                        displayableHour,
+                        displayableMinute,
+                        "Made by Sleep Application!"
+                    )
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("-1.5 Hr")
+                Text("-4.5 Hr")
             }
+        }
 
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(18.dp,0.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             Button(
                 onClick = {
                     val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 180)
@@ -157,8 +180,35 @@ fun SleepAlarmScreen(
             }
         }
 
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(18.dp,0.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(
+                onClick = {
+                    val (newHour, newMinute) = subtractMinutesFromTime(
+                        displayableHour,
+                        displayableMinute,
+                        90
+                    )
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(
+                        context,
+                        displayableHour,
+                        displayableMinute,
+                        "Made by Sleep Application!"
+                    )
+                },
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("-1.5 Hr")
+            }
+        }
 
-
+        Spacer(modifier = Modifier.height(40.dp))
 
         Button(
             colors = ButtonColors(
