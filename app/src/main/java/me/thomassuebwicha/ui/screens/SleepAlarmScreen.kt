@@ -13,7 +13,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
@@ -28,9 +30,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import me.thomassuebwicha.ui.tester.TimePickerDialog
 import me.thomassuebwicha.util.subtractMinutesFromTime
 import me.thomassuebwicha.viewmodels.setAlarm
 import java.util.Calendar
@@ -61,7 +63,8 @@ fun SleepAlarmScreen(
         Text(
             text = "This calculates the best time to go to sleep based on your desired wake up time.",
             fontSize = 20.sp,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 0.dp)
         )
 
         Spacer(modifier = Modifier.height(40.dp))
@@ -69,7 +72,7 @@ fun SleepAlarmScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(18.dp,0.dp),
+                .padding(horizontal = 18.dp, vertical = 0.dp),
             horizontalArrangement = Arrangement.spacedBy(1.dp)
         ) {
             Button(
@@ -231,47 +234,59 @@ fun SleepAlarmScreen(
 
         if (showTimePicker) {
             Log.i("TimePicker", "showTimePicker is true, showing TimePickerDialog")
-            TimePickerDialog(
+            TimePickerModal(
                 onDismissRequest = { showTimePicker = false },
                 onConfirm = { hour, minute ->
                     displayableHour = hour
                     displayableMinute = minute
                     showTimePicker = false
-                }
+                },
             )
         }
-
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DialPickerWidget(
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
+fun TimePickerModal(
+    onDismissRequest: () -> Unit,
+    onConfirm: (hour: Int, minute: Int) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val currentTime = Calendar.getInstance()
-
     val timePickerState = rememberTimePickerState(
         initialHour = currentTime.get(Calendar.HOUR_OF_DAY),
         initialMinute = currentTime.get(Calendar.MINUTE),
-        is24Hour = true,
+        is24Hour = true
     )
 
-    Column {
-        TimePicker(
-            state = timePickerState,
-        )
-        Button(onClick = onDismiss) {
-            Text("Dismis Picker")
+    Dialog(onDismissRequest = onDismissRequest) {
+        Surface(
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = 6.dp,
+            modifier = modifier
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                TimePicker(state = timePickerState, modifier = Modifier.padding(16.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    TextButton(onClick = onDismissRequest) {
+                        Text("CANCEL")
+                    }
+                    TextButton(
+                        onClick = { onConfirm(timePickerState.hour, timePickerState.minute) }
+                    ) {
+                        Text("OK")
+                    }
+                }
+            }
         }
-        Button(onClick = onConfirm) {
-            Text("Confirm selection")
-        }
-
     }
 }
-
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
