@@ -76,28 +76,28 @@ fun SelectionScreen(
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // History Button
-        Button(
-            onClick = onHistoryClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary
-            ),
-            shape = MaterialTheme.shapes.extraLarge
-        ) {
-            Icon(
-                painter = painterResource(id = android.R.drawable.ic_menu_save),
-                contentDescription = null,
-                modifier = Modifier.size(24.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "History",
-                style = MaterialTheme.typography.titleMedium
-            )
-        }
+        // TODO: History Button
+//        Button(
+//            onClick = onHistoryClick,
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(56.dp),
+//            colors = ButtonDefaults.buttonColors(
+//                containerColor = MaterialTheme.colorScheme.primary
+//            ),
+//            shape = MaterialTheme.shapes.extraLarge
+//        ) {
+//            Icon(
+//                painter = painterResource(id = android.R.drawable.ic_menu_save),
+//                contentDescription = null,
+//                modifier = Modifier.size(24.dp)
+//            )
+//            Spacer(modifier = Modifier.width(8.dp))
+//            Text(
+//                text = "History",
+//                style = MaterialTheme.typography.titleMedium
+//            )
+//        }
 
         Spacer(modifier = Modifier.height(32.dp))
     }
@@ -147,7 +147,7 @@ fun SleepTabRow(
                 },
                 selected = index == selectedIndex,
                 icon = {},
-                label = { Text(title)}
+                label = { Text(title) }
             )
         }
     }
@@ -155,7 +155,7 @@ fun SleepTabRow(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun SleepAlarmsIntroScreenPreview() {
+fun SelectionScreenPreview() {
     MaterialTheme {
         val navController = rememberNavController()
         SelectionScreen(navController)
