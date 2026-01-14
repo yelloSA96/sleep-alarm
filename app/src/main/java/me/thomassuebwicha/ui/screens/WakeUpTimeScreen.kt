@@ -18,8 +18,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -31,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.delay
 import me.thomassuebwicha.viewmodels.setAlarm
 import java.util.Calendar
 import java.util.Locale
@@ -59,6 +62,8 @@ fun WakeUpTimeScreen(
 
         Spacer(modifier = Modifier.height(40.dp))
 
+        var isPressed by remember { mutableStateOf(false) }
+
         Button(
             colors = ButtonColors(
                 containerColor = MaterialTheme.colorScheme.background,
@@ -70,6 +75,7 @@ fun WakeUpTimeScreen(
                 val currentCalendar = Calendar.getInstance()
                 hour = currentCalendar.get(Calendar.HOUR_OF_DAY)
                 minute = currentCalendar.get(Calendar.MINUTE)
+                isPressed = true
             },
         ) {
             Text(
@@ -77,7 +83,14 @@ fun WakeUpTimeScreen(
                 fontSize = 58.sp,
                 color = MaterialTheme.colorScheme.onBackground
             )
-
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        if (isPressed) {
+            Text("Reset to current time", fontSize = 14.sp, color = MaterialTheme.colorScheme.onBackground)
+            LaunchedEffect(Unit) {
+                delay(2000)
+                isPressed = false
+            }
         }
 
         Spacer(modifier = Modifier.height(40.dp))
