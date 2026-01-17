@@ -10,7 +10,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import me.thomassuebwicha.ui.screens.SleepAlarmScreen
+import androidx.navigation.compose.rememberNavController
+import me.thomassuebwicha.ui.navigation.AppNavigation
 import me.thomassuebwicha.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,13 +20,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SleepAlarmScreen()
+                    val navController = rememberNavController()
+                    AppNavigation(navController = navController)
                 }
             }
         }
@@ -38,6 +38,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun SleepAlarmActivityPreview() {
     MyApplicationTheme {
-        SleepAlarmScreen()
+        val navController = rememberNavController()
+        AppNavigation(navController = navController)
     }
 }

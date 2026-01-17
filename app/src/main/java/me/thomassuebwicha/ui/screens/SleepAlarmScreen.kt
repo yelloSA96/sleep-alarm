@@ -1,5 +1,6 @@
 package me.thomassuebwicha.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,160 +10,289 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TimePicker
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import me.thomassuebwicha.util.subtractMinutesFromTime
 import me.thomassuebwicha.viewmodels.setAlarm
 import java.util.Calendar
 import java.util.Locale
 
-// TODO: Improve this composable
 @Composable
-fun SleepAlarmScreen(modifier: Modifier = Modifier) {
+fun SleepAlarmScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
-    var hour by remember { mutableIntStateOf(calendar.get(Calendar.HOUR_OF_DAY)) }
-    var minute by remember { mutableIntStateOf(calendar.get(Calendar.MINUTE)) }
-    val timeString = String.format(Locale.ENGLISH, "%02d:%02d", hour, minute)
+    var displayableHour by remember { mutableIntStateOf(calendar.get(Calendar.HOUR_OF_DAY)) }
+    var displayableMinute by remember { mutableIntStateOf(calendar.get(Calendar.MINUTE)) }
+    var showTimePicker by remember { mutableStateOf(false) }
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
         Text(
-            text = timeString,
-            fontSize = 58.sp,
+            text = "Bedtime Alarm",
+            fontSize = 40.sp,
             color = MaterialTheme.colorScheme.onBackground
+        )
+
+        Text(
+            text = "This calculates the best time to go to sleep based on your desired wake up time.",
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 0.dp)
         )
 
         Spacer(modifier = Modifier.height(40.dp))
 
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                .padding(horizontal = 18.dp, vertical = 0.dp),
+            horizontalArrangement = Arrangement.spacedBy(1.dp)
         ) {
             Button(
                 onClick = {
-                    val currentCalendar = Calendar.getInstance()
-                    hour = currentCalendar.get(Calendar.HOUR_OF_DAY)
-                    minute = currentCalendar.get(Calendar.MINUTE)
+                    val (newHour, newMinute) = subtractMinutesFromTime(
+                        displayableHour,
+                        displayableMinute,
+                        540
+                    )
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(
+                        context,
+                        displayableHour,
+                        displayableMinute,
+                        "Made by Sleep Application!"
+                    )
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("Reset Time")
-            }
-        }
-
-        // Grid for buttons
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                onClick = {
-                    val totalMinutes = hour * 60 + minute + 90
-                    hour = (totalMinutes / 60) % 24
-                    minute = totalMinutes % 60
-                },
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("+1.5 Hr")
-            }
-
-            Button(
-                onClick = {
-                    hour = (hour + 3) % 24
-                },
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("+3.0 Hr")
+                Text("-9 Hr")
             }
         }
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(18.dp,0.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
                 onClick = {
-                    val totalMinutes = hour * 60 + minute + 270
-                    hour = (totalMinutes / 60) % 24
-                    minute = totalMinutes % 60
+                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 450)
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("+4.5 Hr")
-            }
-
-            Button(
-                onClick = {
-                    hour = (hour + 6) % 24
-                },
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("+6 Hr")
+                Text("-7.5 Hr")
             }
         }
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(18.dp,0.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
                 onClick = {
-                    val totalMinutes = hour * 60 + minute + 450
-                    hour = (totalMinutes / 60) % 24
-                    minute = totalMinutes % 60
+                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 360)
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("+7.5 Hr")
+                Text("-6 Hr")
             }
+        }
 
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(18.dp,0.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             Button(
                 onClick = {
-                    hour = (hour + 9) % 24
+                    val (newHour, newMinute) = subtractMinutesFromTime(
+                        displayableHour,
+                        displayableMinute,
+                        270
+                    )
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(
+                        context,
+                        displayableHour,
+                        displayableMinute,
+                        "Made by Sleep Application!"
+                    )
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("+9 Hr")
+                Text("-4.5 Hr")
             }
         }
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(18.dp,0.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
                 onClick = {
-                    setAlarm(context, hour, minute, "Made by Sleep Application!")
+                    val (newHour, newMinute) = subtractMinutesFromTime(displayableHour, displayableMinute, 180)
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(context, displayableHour, displayableMinute, "Made by Sleep Application!")
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("Set Alarm")
+                Text("-3.0 Hr")
             }
         }
 
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(18.dp,0.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(
+                onClick = {
+                    val (newHour, newMinute) = subtractMinutesFromTime(
+                        displayableHour,
+                        displayableMinute,
+                        90
+                    )
+                    displayableHour = newHour
+                    displayableMinute = newMinute
+                    setAlarm(
+                        context,
+                        displayableHour,
+                        displayableMinute,
+                        "Made by Sleep Application!"
+                    )
+                },
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("-1.5 Hr")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(40.dp))
+
+        Button(
+            colors = ButtonColors(
+                containerColor = MaterialTheme.colorScheme.background,
+                disabledContainerColor = MaterialTheme.colorScheme.background,
+                contentColor = MaterialTheme.colorScheme.onBackground,
+                disabledContentColor = MaterialTheme.colorScheme.onBackground
+            ),
+            onClick = {
+                showTimePicker = true
+            },
+        ) {
+            Text(
+                text = String.format(Locale.ENGLISH, "%02d:%02d", displayableHour, displayableMinute),
+                fontSize = 58.sp,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+        }
+
+        if (showTimePicker) {
+            Log.i("TimePicker", "showTimePicker is true, showing TimePickerDialog")
+            TimePickerModal(
+                onDismissRequest = { showTimePicker = false },
+                onConfirm = { hour, minute ->
+                    displayableHour = hour
+                    displayableMinute = minute
+                    showTimePicker = false
+                },
+            )
+        }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TimePickerModal(
+    onDismissRequest: () -> Unit,
+    onConfirm: (hour: Int, minute: Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val currentTime = Calendar.getInstance()
+    val timePickerState = rememberTimePickerState(
+        initialHour = currentTime.get(Calendar.HOUR_OF_DAY),
+        initialMinute = currentTime.get(Calendar.MINUTE),
+        is24Hour = true
+    )
+
+    Dialog(onDismissRequest = onDismissRequest) {
+        Surface(
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = 6.dp,
+            modifier = modifier
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                TimePicker(state = timePickerState, modifier = Modifier.padding(16.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    TextButton(onClick = onDismissRequest) {
+                        Text("CANCEL")
+                    }
+                    TextButton(
+                        onClick = { onConfirm(timePickerState.hour, timePickerState.minute) }
+                    ) {
+                        Text("OK")
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun SleepAlarmsScreenPreview() {
+    MaterialTheme {
+        val navController = rememberNavController()
+        SleepAlarmScreen(navController)
+    }
+}
