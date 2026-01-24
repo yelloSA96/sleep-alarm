@@ -49,8 +49,8 @@ fun WakeUpTimeScreen(
     ) { contentPadding ->
         val context = LocalContext.current
         val calendar = Calendar.getInstance()
-        var hour by remember { mutableIntStateOf(calendar.get(Calendar.HOUR_OF_DAY)) }
-        var minute by remember { mutableIntStateOf(calendar.get(Calendar.MINUTE)) }
+        var hour by remember { mutableIntStateOf(0) }
+        var minute by remember { mutableIntStateOf(0) }
         val timeString = String.format(Locale.ENGLISH, "%02d:%02d", hour, minute)
         Column(
             modifier = modifier
