@@ -13,17 +13,18 @@ fun setAlarm(context: Context, hour: Int, minute: Int, message: String) {
             putExtra(AlarmClock.EXTRA_MINUTES, minute)
             putExtra(AlarmClock.EXTRA_MESSAGE, message)
             putExtra(AlarmClock.EXTRA_SKIP_UI, false) // Shows the Clock app UI
+            putExtra(AlarmClock.EXTRA_VIBRATE, true)
         }
-        Log.i("SettingAlarm",intent.toString())
+        Log.i("SettingAlarmAction",intent.toString())
         // Check if there's an app that can handle this intent
         if (intent.resolveActivity(context.packageManager) != null) {
             context.startActivity(intent)
         } else {
-            Log.e("SettingAlarm", "No clock app found.")
+            Log.e("SettingAlarmAction", "No clock app found.")
             Toast.makeText(context, "No clock app found", Toast.LENGTH_SHORT).show()
         }
     } catch (e: Exception) {
-        Log.e("SettingAlarm", "Error setting alarm")
+        Log.e("SettingAlarmAction", "Error setting alarm")
         Toast.makeText(context, "Error setting alarm: ${e.message}", Toast.LENGTH_SHORT).show()
     }
 }
